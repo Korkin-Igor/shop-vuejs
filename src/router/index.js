@@ -1,24 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-    }
-  }
-]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+  history: createWebHistory(), // Использует HTML5 History API для чистых URL
+  routes: [
+    {
+      path: '/login',
+      name: 'login',
+      // Ленивая загрузка: компонент подгрузится только при переходе
+      component: () => import('../views/Login.vue')
+    }
+  ]
 })
 
 export default router
