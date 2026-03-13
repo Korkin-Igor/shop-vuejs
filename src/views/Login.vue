@@ -18,7 +18,7 @@ const login = async () => {
   try {
     const response = await authStore.login(userData);
     const token = response?.data?.token
-    await router.push("/login");
+    await router.push("/");
 
   } catch (error) {
     console.error("Ошибка входа:", error);
