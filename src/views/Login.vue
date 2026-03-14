@@ -9,6 +9,8 @@ const router = useRouter();
 const username = ref('');
 const password = ref('');
 
+const data = ref({})
+
 const login = async () => {
   const userData = {
     username: username.value,
@@ -21,7 +23,7 @@ const login = async () => {
     await router.push("/");
 
   } catch (error) {
-    console.error("Ошибка входа:", error);
+    data.value = error.response.data
   }
 };
 </script>
@@ -36,9 +38,19 @@ const login = async () => {
     <hr />
     <button type="submit">Login</button>
   </form>
+  <div v-if="data.message">{{data.message}}</div>
+  <div v-for="(messages, field) in data.errors" :key="field">
+    <li v-for="msg in messages" :key="msg">
+      {{ msg }}
+    </li>
+  </div>
 </template>
 
 <style scoped>
+h1 {
+  text-align: center;
+}
+
 .login {
   display: flex;
   flex-direction: column;

@@ -12,7 +12,6 @@ export const useAuthStore = defineStore('auth', () => {
     // --- Actions ---
     async function login(userData) {
         try {
-            // Предполагаем, что loginRequest возвращает Promise с токеном
             const receivedToken = await loginRequest(userData);
             token.value = receivedToken;
             localStorage.setItem('token', receivedToken);
