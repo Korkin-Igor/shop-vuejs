@@ -6,14 +6,14 @@ import { useAuthStore } from "@/stores/authStore";
 const authStore = useAuthStore();
 const router = useRouter();
 
-const username = ref('');
+const email = ref('');
 const password = ref('');
 
 const data = ref({})
 
 const login = async () => {
   const userData = {
-    username: username.value,
+    email: email.value,
     password: password.value,
   };
 
@@ -31,19 +31,20 @@ const login = async () => {
 <template>
   <form class="login" @submit.prevent="login">
     <h1>Sign in</h1>
-    <label>User name</label>
-    <input type="text" required v-model="username" />
+    <label>Email</label>
+    <input type="email" required v-model="email" />
     <label>Password</label>
-    <input type="text" required v-model="password" />
+    <input type="password" required v-model="password" />
     <hr />
     <button type="submit">Login</button>
   </form>
   <div v-if="data.message">{{data.message}}</div>
-  <div v-for="(messages, field) in data.errors" :key="field">
-    <li v-for="msg in messages" :key="msg">
+  <div v-else-if="data.error" class="error-list">{{data.error.message}}</div>
+  <ul v-else v-for="(messages, field) in data.errors" :key="field">
+    <li class="error-list" v-for="msg in messages" :key="msg">
       {{ msg }}
     </li>
-  </div>
+  </ul>
 </template>
 
 <style scoped>
