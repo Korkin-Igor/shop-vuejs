@@ -36,7 +36,7 @@ const login = async () => {
     <label>Password</label>
     <input type="password" required v-model="password" />
     <hr />
-    <button type="submit">Login</button>
+    <button class="btn btn-primary" type="submit">Login</button>
   </form>
   <div v-if="data.message">{{data.message}}</div>
   <div v-else-if="data.error" class="error-list">{{data.error.message}}</div>
@@ -59,6 +59,7 @@ h1 {
   padding: 10px;
   margin: 0 auto;
 }
+
 .login input,
 button {
   border: 1px solid black;

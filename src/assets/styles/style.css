@@ -83,13 +83,16 @@ body {
 }
 
 .error-list {
+    text-align: center;
+    width: 20%;
+    max-width: 200px;
     background: #fef2f2;
     border: 1px solid var(--error-color);
     color: var(--error-color);
     padding: 12px;
     border-radius: var(--radius);
     list-style: none;
-    margin: 10px 0;
+    margin: 10px auto;
     font-size: 0.9rem;
 }
 
