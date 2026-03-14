@@ -14,7 +14,7 @@ const ifAuthenticated = () => {
 }
 
 const router = createRouter({
-  history: createWebHistory(), // Использует HTML5 History API для чистых URL
+  history: createWebHistory(),
   routes: [
     {
       path: '/login',
@@ -22,7 +22,7 @@ const router = createRouter({
       // Ленивая загрузка: компонент подгрузится только при переходе
       component: () => import('../views/Login.vue'),
       beforeEnter: ifNotAuthenticated
-    }
+    },
   ]
 })
 

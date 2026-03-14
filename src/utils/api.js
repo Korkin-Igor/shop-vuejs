@@ -1,22 +1,9 @@
-const API = import.meta.env.VITE_APP_API;
+import api from "@/utils/axios";
 
 export const loginRequest = async (user) => {
     try {
-        const response = await fetch(`${API}/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-            },
-            body: JSON.stringify(user),
-        });
-
-        if (!response.ok) {
-            throw new Error('Ошибка авторизации');
-        }
-
-        const result = await response.json();
-
-        return result.data.user_token;
+        const { data } = await api.post('/login', user);
+        return data.data.user_token;
 
     } catch (error) {
         // Ошибка пробросится в стор автоматически
