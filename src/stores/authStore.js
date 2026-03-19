@@ -3,13 +3,9 @@ import { ref, computed } from 'vue';
 import {loginRequest, registerRequest} from "@/utils/api";
 
 export const useAuthStore = defineStore('auth', () => {
-    // --- State ---
-    const token = ref(localStorage.getItem('myAppToken') || '');
-
-    // --- Getters ---
+    const token = ref(localStorage.getItem('token') || '');
     const isAuthenticated = computed(() => !!token.value);
 
-    // --- Actions ---
     async function login(userData) {
         try {
             const receivedToken = await loginRequest(userData);
@@ -47,6 +43,6 @@ export const useAuthStore = defineStore('auth', () => {
         isAuthenticated,
         login,
         register,
-        logout
+        logout,
     };
 });

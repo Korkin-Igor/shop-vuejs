@@ -12,10 +12,20 @@ export const loginRequest = async (userData) => {
 
 export const registerRequest = async (userData) => {
     try {
-        const { data } = await api.post('/signup', userData);
+        const { data } = await api.post('./signup', userData);
         return data?.data?.user_token
     } catch (error) {
         console.log(error)
+        return error;
+    }
+}
+
+export const getProductsRequest = async () => {
+    try {
+        const response = await api.get('/products')
+        return response?.data;
+    } catch (error) {
+        console.log(error);
         return error;
     }
 }

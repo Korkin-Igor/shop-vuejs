@@ -20,14 +20,14 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       // Ленивая загрузка: компонент подгрузится только при переходе
-      component: () => import('../views/Login.vue'),
+      component: () => import('../views/Auth/Login.vue'),
       beforeEnter: ifNotAuthenticated
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('../views/Register.vue')
-    }
+      component: () => import('../views/Auth/Register.vue')
+    },
   ]
 })
 
