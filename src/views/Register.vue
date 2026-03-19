@@ -6,19 +6,21 @@ import { useAuthStore } from "@/stores/authStore";
 const authStore = useAuthStore();
 const router = useRouter();
 
+const fio = ref('');
 const email = ref('');
 const password = ref('');
 
 const data = ref({})
 
-const login = async () => {
+const register = async () => {
   const userData = {
+    fio: fio.value,
     email: email.value,
     password: password.value,
   };
 
   try {
-    const response = await authStore.login(userData);
+    const response = await authStore.register(userData);
     const token = response?.data?.token
     await router.push("/");
 
@@ -29,15 +31,16 @@ const login = async () => {
 </script>
 
 <template>
-  <form class="login" @submit.prevent="login">
-    <h1>Sign in</h1>
+  <form class="register" @submit.prevent="register">
+    <h1>Sign up</h1>
+    <label>Name</label>
+    <input type="text" required v-model="fio" />
     <label>Email</label>
     <input type="email" required v-model="email" />
     <label>Password</label>
     <input type="password" required v-model="password" />
     <hr />
-    <button class="btn btn-primary" type="submit">Login</button>
-    <a href="./register">Don't have an account yet?</a>
+    <button class="btn btn-primary" type="submit">Register</button>
   </form>
   <div v-if="data.message">{{data.message}}</div>
   <div v-else-if="data.error" class="error-list">{{data.error.message}}</div>
@@ -53,7 +56,7 @@ h1 {
   text-align: center;
 }
 
-.login {
+.register {
   display: flex;
   flex-direction: column;
   width: 300px;

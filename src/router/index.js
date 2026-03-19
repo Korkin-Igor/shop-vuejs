@@ -23,6 +23,11 @@ const router = createRouter({
       component: () => import('../views/Login.vue'),
       beforeEnter: ifNotAuthenticated
     },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/Register.vue')
+    }
   ]
 })
 
