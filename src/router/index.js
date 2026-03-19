@@ -1,33 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '@/stores/authStore'
-
-const ifNotAuthenticated = () => {
-  const auth = useAuthStore()
-  if (!auth.isAuthenticated) return true
-  return '/'
-}
-
-const ifAuthenticated = () => {
-  const auth = useAuthStore()
-  if (auth.isAuthenticated) return true
-  return '/login'
-}
+import { authRoutes, ifAuthenticated } from './modules/auth'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    {
-      path: '/login',
-      name: 'login',
-      // Ленивая загрузка: компонент подгрузится только при переходе
-      component: () => import('../views/Auth/Login.vue'),
-      beforeEnter: ifNotAuthenticated
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: () => import('../views/Auth/Register.vue')
-    },
+    ...authRoutes,
   ]
 })
 

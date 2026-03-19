@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import {getProductsRequest} from "@/utils/api";
+import { getProductsRequest } from "@/utils/api";
 
 export const productsStore = defineStore('products', () => {
     const products = ref(['']);
