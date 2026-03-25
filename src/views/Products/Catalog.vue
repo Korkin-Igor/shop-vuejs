@@ -1,6 +1,7 @@
 <script setup>
 import {getProductsRequest} from "@/utils/api";
 import {ref, onMounted} from "vue";
+import Product from "@/views/Products/Product.vue";
 
 const products = ref([]);
 const isLoading = ref(true);
@@ -23,8 +24,7 @@ onMounted(loadProducts);
   <h1>Products</h1>
   <ul class="products-list">
     <li v-for="product of products.data" :key="product.id" class="product-card">
-      <img src="" alt="product-image">
-      {{ product }}
+      <Product :product="product"></Product>
     </li>
   </ul>
 </section>
@@ -51,6 +51,6 @@ h1 {
 
 .product-card {
   max-width: 400px;
-  height: 300px;
+  min-height: 450px;
 }
 </style>

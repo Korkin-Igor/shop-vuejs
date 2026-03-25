@@ -2,7 +2,7 @@ import api from "@/utils/axios";
 
 export const loginRequest = async (userData) => {
     try {
-        const { data } = await api.post('/login', userData);
+        const { data } = await api.post('login', userData);
         return data?.data?.user_token;
     } catch (error) {
         console.log(error)
@@ -12,7 +12,7 @@ export const loginRequest = async (userData) => {
 
 export const registerRequest = async (userData) => {
     try {
-        const { data } = await api.post('./signup', userData);
+        const { data } = await api.post('signup', userData);
         return data?.data?.user_token
     } catch (error) {
         console.log(error)
@@ -22,7 +22,7 @@ export const registerRequest = async (userData) => {
 
 export const getProductsRequest = async () => {
     try {
-        const response = await api.get('/products')
+        const response = await api.get('products')
         return response?.data;
     } catch (error) {
         console.log(error);
