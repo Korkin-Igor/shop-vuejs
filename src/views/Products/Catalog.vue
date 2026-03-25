@@ -1,7 +1,7 @@
 <script setup>
 import {getProductsRequest} from "@/utils/api";
 import {ref, onMounted} from "vue";
-import Product from "@/views/Products/Product.vue";
+import Product from "@/components/Product.vue";
 
 const products = ref([]);
 const isLoading = ref(true);

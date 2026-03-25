@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { authRoutes, ifAuthenticated } from './modules/auth'
+import { authRoutes } from './modules/auth'
+import { cartRoutes } from './modules/products'
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -9,7 +11,8 @@ const router = createRouter({
       'path': '/products',
       'name': 'products',
       component: () => import('../views/Products/Catalog.vue')
-    }
+    },
+    ...cartRoutes,
   ]
 })
 

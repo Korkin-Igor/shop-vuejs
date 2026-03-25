@@ -26,7 +26,7 @@ const image_url = computed(() => {
       <p class="product-desc">{{ product.description }}</p>
       <div class="product-footer">
         <span class="product-price">{{ product.price }} ₽</span>
-        <button class="btn-primary" @click="$emit('add', id)">В корзину</button>
+        <button class="btn-primary" @click="$emit('add', product.id)">В корзину</button>
       </div>
     </div>
   </div>

@@ -1,12 +1,12 @@
 import {useAuthStore} from "@/stores/authStore";
 
-const ifNotAuthenticated = () => {
+const isNotAuthenticated = () => {
     const auth = useAuthStore()
     if (!auth.isAuthenticated) return true
     return '/'
 }
 
-export const ifAuthenticated = () => {
+export const isAuthenticated = () => {
     const auth = useAuthStore()
     if (auth.isAuthenticated) return true
     return '/login'
@@ -18,11 +18,12 @@ export const authRoutes = [
         name: 'login',
         // Ленивая загрузка: компонент подгрузится только при переходе
         component: () => import('../../views/Auth/Login.vue'),
-        beforeEnter: ifNotAuthenticated
+        beforeEnter: isNotAuthenticated
     },
     {
         path: '/register',
         name: 'register',
-        component: () => import('../../views/Auth/Register.vue')
+        component: () => import('../../views/Auth/Register.vue'),
+        beforeEnter: isNotAuthenticated
     },
 ]
