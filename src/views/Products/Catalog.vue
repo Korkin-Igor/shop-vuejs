@@ -24,7 +24,7 @@ onMounted(loadProducts);
   <h1>Products</h1>
   <ul class="products-list">
     <li v-for="product of products.data" :key="product.id" class="product-card">
-      <Product :product="product"></Product>
+      <Product :product="product" />
     </li>
   </ul>
 </section>

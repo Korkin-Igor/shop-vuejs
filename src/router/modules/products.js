@@ -1,5 +1,5 @@
 import { isAuthenticated } from './auth'
-export const cartRoutes = [
+export const productsRoutes = [
     {
         'path': '/products',
         'name': 'products',

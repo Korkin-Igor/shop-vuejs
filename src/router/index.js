@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { authRoutes } from './modules/auth'
-import { cartRoutes } from './modules/products'
+import {productsRoutes} from './modules/products'
 
 
 const router = createRouter({
@@ -8,11 +8,11 @@ const router = createRouter({
   routes: [
     ...authRoutes,
     {
-      'path': '/products',
-      'name': 'products',
-      component: () => import('../views/Products/Catalog.vue')
+      'path': '/',
+      'name': 'main',
+      redirect: { name: 'products' }
     },
-    ...cartRoutes,
+    ...productsRoutes,
   ]
 })
 
