@@ -4,9 +4,9 @@
       <router-link to="/" class="logo">MyStore</router-link>
 
       <nav class="nav">
-        <router-link to="/products" class="nav-link">Каталог</router-link>
-        <router-link to="/cart" class="nav-link">Корзина</router-link>
-        <router-link to="/login" class="btn btn-login">Войти</router-link>
+        <router-link to="/products" class="nav-link">Catalog</router-link>
+        <router-link to="/cart" class="nav-link">Cart</router-link>
+        <router-link to="/login" class="btn btn-login">Sign in</router-link>
       </nav>
     </div>
   </header>

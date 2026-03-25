@@ -2,11 +2,10 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
-        <p>&copy; 2026 MyStore Inc. Все права защищены.</p>
+        <p>&copy; 2026 MyStore Inc. All rights reserved.</p>
         <div class="footer-links">
-          <a href="#">Помощь</a>
-          <a href="#">Контакты</a>
-          <a href="#">Конфиденциальность</a>
+          <a href="#">Help</a>
+          <a href="#">Contacts</a>
         </div>
       </div>
     </div>
@@ -18,7 +17,7 @@
   background-color: white;
   border-top: 1px solid var(--border-color);
   padding: 2rem 0;
-  margin-top: auto; /* Поможет прижать футер вниз */
+  margin-top: auto;
 }
 
 .container {

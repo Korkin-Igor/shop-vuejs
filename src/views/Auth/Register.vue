@@ -41,6 +41,7 @@ const register = async () => {
     <input type="password" required v-model="password" />
     <hr />
     <button class="btn btn-primary" type="submit">Register</button>
+    <a href="./login">Have an account yet?</a>
   </form>
   <div v-if="data.message">{{data.message}}</div>
   <div v-else-if="data.error" class="error-list">{{data.error.message}}</div>
