@@ -26,7 +26,11 @@ export const useCartStore = defineStore('cart', () => {
     }
 
     async function removeItem() {
+        try {
+            cart.value = cart.value.filter(item => item.id !== productId);
+        } catch (error) {
 
+        }
     }
 
     function clearCart() {
@@ -36,6 +40,7 @@ export const useCartStore = defineStore('cart', () => {
 
     return {
         cart,
+        getCart,
         addItem,
         removeItem,
         clearCart,
