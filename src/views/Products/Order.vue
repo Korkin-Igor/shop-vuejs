@@ -8,7 +8,7 @@ const loading = ref(false);
 
 onMounted(async () => {
   loading.value = true;
-  await orderStore.fetchOrders();
+  await orderStore.getOrders();
   loading.value = false;
 });
 </script>
@@ -35,7 +35,7 @@ onMounted(async () => {
                 description: '',
                 price: 0
               }"
-              :is-order="true"/>
+              :isOrder="true"/>
         </div>
       </div>
     </div>

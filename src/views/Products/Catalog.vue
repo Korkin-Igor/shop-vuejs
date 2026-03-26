@@ -27,6 +27,7 @@
         <Product
             :product="product"
             :isCart="false"
+            :isOrder="false"
         />
       </li>
     </ul>

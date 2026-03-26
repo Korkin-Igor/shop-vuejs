@@ -7,10 +7,10 @@ export const useOrderStore = defineStore('order', () => {
     const orders = ref([]);
     const cartStore = useCartStore();
 
-    async function fetchOrders() {
+    async function getOrders() {
         try {
             const response = await getOrdersRequest();
-            orders.value = response.data.data;
+            orders.value = response.data;
         } catch (error) {
             throw error;
         }
@@ -26,5 +26,5 @@ export const useOrderStore = defineStore('order', () => {
         }
     }
 
-    return { orders, fetchOrders, createOrder };
+    return { orders, getOrders, createOrder };
 });

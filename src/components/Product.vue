@@ -4,7 +4,8 @@ import {useCartStore} from "@/stores/cartStore";
 
 const props = defineProps({
   product: Object,
-  isCart: Boolean
+  isCart: Boolean,
+  isOrder: Boolean
 })
 
 const image_url = computed(() => {
@@ -35,7 +36,7 @@ const cartStore = useCartStore()
         <span class="product-price">{{ product.price }} ₽</span>
 
         <button
-            v-if="!isCart"
+            v-if="!isCart && !isOrder"
             class="btn-primary"
             @click="cartStore.addItem(product.id)"
         >
@@ -43,7 +44,7 @@ const cartStore = useCartStore()
         </button>
 
         <button
-            v-else
+            v-if="isCart"
             class="btn-remove"
             @click="cartStore.removeItem(product.id)"
         >
