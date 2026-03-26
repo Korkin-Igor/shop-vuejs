@@ -7,7 +7,7 @@ const cartStore = useCartStore();
 const loading = ref(false);
 const errorMessage = ref('');
 
-async function fetchCart() {
+async function getCart() {
   loading.value = true;
   errorMessage.value = '';
   try {
@@ -29,7 +29,7 @@ async function removeItem(productId) {
   }
 }
 
-onMounted(fetchCart);
+onMounted(getCart);
 </script>
 
 <template>

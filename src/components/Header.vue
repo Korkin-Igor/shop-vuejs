@@ -1,3 +1,8 @@
+<script setup>
+import {useAuthStore} from "@/stores/authStore";
+const cartStore = useAuthStore()
+</script>
+
 <template>
   <header class="header">
     <div class="container">
@@ -5,8 +10,12 @@
 
       <nav class="nav">
         <router-link to="/products" class="nav-link">Catalog</router-link>
-        <router-link to="/cart" class="nav-link">Cart</router-link>
-        <router-link to="/login" class="btn btn-login">Sign in</router-link>
+        <router-link
+            v-if="cartStore.isAuthenticated"
+            to="/cart" class="nav-link">Cart</router-link>
+        <router-link
+            v-if="!cartStore.isAuthenticated"
+            to="/login" class="btn btn-login">Sign in</router-link>
       </nav>
     </div>
   </header>
