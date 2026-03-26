@@ -19,23 +19,3 @@ export const registerRequest = async (userData) => {
         throw error;
     }
 }
-
-export const getProductsRequest = async () => {
-    try {
-        const response = await api.get('products')
-        return response?.data;
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
-}
-
-export const getCartRequest = async () => {
-    try {
-        const response = await api.get('cart')
-        return response.data
-    } catch (error) {
-        console.log(error)
-        throw error
-    }
-}

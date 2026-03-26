@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import {getCartRequest} from "@/utils/api";
+import {getCartRequest} from "@/utils/api/cart";
 
 export const useCartStore = defineStore('cart', () => {
     const cart = ref(JSON.parse(localStorage.getItem('cart')) || []);

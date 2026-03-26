@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import {loginRequest, registerRequest} from "@/utils/api";
+import {loginRequest, registerRequest} from "@/utils/api/auth";
 import {useCartStore} from "@/stores/cartStore";
 
 export const useAuthStore = defineStore('auth', () => {

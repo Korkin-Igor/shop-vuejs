@@ -1,5 +1,5 @@
 <script setup>
-import {getProductsRequest} from "@/utils/api";
+import {getProductsRequest} from "@/utils/api/products";
 import {ref, onMounted} from "vue";
 import Product from "@/components/Product.vue";
 
