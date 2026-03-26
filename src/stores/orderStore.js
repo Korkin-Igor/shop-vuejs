@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import api from "@/utils/axios";
 import { useCartStore } from "./cartStore";
+import {createOrderRequest, getOrdersRequest} from "@/utils/api/order";
 
 export const useOrderStore = defineStore('order', () => {
     const orders = ref([]);
@@ -9,7 +10,7 @@ export const useOrderStore = defineStore('order', () => {
 
     async function fetchOrders() {
         try {
-            const response = await api.get('order');
+            const response = await getOrdersRequest();
             orders.value = response.data.data;
         } catch (error) {
             throw error;
@@ -18,7 +19,7 @@ export const useOrderStore = defineStore('order', () => {
 
     async function createOrder() {
         try {
-            const response = await api.post('order');
+            const response = await createOrderRequest();
             cartStore.clearCart();
             return response.data;
         } catch (error) {
