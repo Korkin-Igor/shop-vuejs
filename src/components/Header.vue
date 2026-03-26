@@ -1,6 +1,6 @@
 <script setup>
-import {useAuthStore} from "@/stores/authStore";
-const cartStore = useAuthStore()
+import { useAuthStore } from "@/stores/authStore";
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -9,13 +9,34 @@ const cartStore = useAuthStore()
       <router-link to="/" class="logo">MyStore</router-link>
 
       <nav class="nav">
-        <router-link to="/products" class="nav-link">Catalog</router-link>
         <router-link
-            v-if="cartStore.isAuthenticated"
-            to="/cart" class="nav-link">Cart</router-link>
+            to="/products"
+            class="nav-link"
+            active-class="active-bar">
+          Catalog
+        </router-link>
+
         <router-link
-            v-if="!cartStore.isAuthenticated"
-            to="/login" class="btn btn-login">Sign in</router-link>
+            v-if="authStore.isAuthenticated"
+            to="/cart"
+            class="nav-link"
+            active-class="active-bar">
+          Cart
+        </router-link>
+
+        <router-link
+            v-if="!authStore.isAuthenticated"
+            to="/login"
+            class="btn btn-login">
+          Sign in
+        </router-link>
+
+        <button
+            v-else
+            @click="authStore.logout()"
+            class="btn-logout">
+          Logout
+        </button>
       </nav>
     </div>
   </header>
@@ -55,21 +76,50 @@ const cartStore = useAuthStore()
 }
 
 .nav-link {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s;
+  transition: all 0.2s;
+  padding: 5px 0;
+  position: relative;
 }
 
-.nav-link:hover {
-  color: white;
+.active-bar {
+  color: white !important;
+  opacity: 1;
 }
 
-.btn-login {
+.active-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+.btn-login, .btn-logout {
   background: white;
   color: var(--primary-color);
   padding: 8px 16px;
   font-size: 0.9rem;
-  width: auto;
+  border-radius: var(--radius);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-logout {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid white;
+}
+
+.btn-logout:hover {
+  background: white;
+  color: var(--primary-color);
 }
 </style>
