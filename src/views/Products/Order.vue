@@ -1,36 +1,51 @@
+<script setup>
+import { onMounted, ref } from "vue";
+import { useOrderStore } from "@/stores/orderStore";
+import Product from "@/components/Product.vue";
+
+const orderStore = useOrderStore();
+const loading = ref(false);
+
+onMounted(async () => {
+  loading.value = true;
+  await orderStore.fetchOrders();
+  loading.value = false;
+});
+</script>
+
 <template>
   <div class="orders-page">
-    <h1>Мои заказы</h1>
+    <h1 v-if="orderStore.orders && orderStore.orders.length">My orders</h1>
 
-    <div v-if="orderStore.orders.length > 0" class="orders-list">
+    <div v-if="orderStore.orders">
       <div v-for="order in orderStore.orders" :key="order.id" class="order-card">
         <div class="order-header">
           <span class="order-number">Заказ №{{ order.id }}</span>
-          <span class="order-price">{{ order.order_price }} ₽</span>
+          <strong class="order-price">{{ order.order_price }} ₽</strong>
         </div>
 
-        <div class="order-items-count">
-          Количество товаров: {{ order.products.length }}
+        <div class="order-items">
+          <Product
+              v-for="productId in order.products"
+              :key="productId"
+              :product="{
+                id: productId,
+                name: 'Товар #' + productId,
+                image: '',
+                description: '',
+                price: 0
+              }"
+              :is-order="true"
+          />
         </div>
       </div>
     </div>
 
-    <div v-else class="empty-orders">
-      <p>Список заказов пуст</p>
+    <div v-if="orderStore.orders && orderStore.orders.length === 0 && !loading" class="empty-orders">
+      Заказов пока нет
     </div>
   </div>
 </template>
-
-<script setup>
-import { onMounted } from 'vue';
-import { useOrderStore } from '@/stores/orderStore';
-
-const orderStore = useOrderStore();
-
-onMounted(() => {
-  orderStore.fetchOrders();
-});
-</script>
 
 <style scoped>
 .orders-page {

@@ -8,6 +8,7 @@ const props = defineProps({
 })
 
 const image_url = computed(() => {
+  if (!props.product?.image) return '';
   return process.env.VUE_APP_API_URL_IMAGE + props.product.image
 })
 

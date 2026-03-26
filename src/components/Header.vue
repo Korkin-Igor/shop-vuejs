@@ -25,6 +25,14 @@ const authStore = useAuthStore();
         </router-link>
 
         <router-link
+            v-if="authStore.isAuthenticated"
+            to="/orders"
+            class="nav-link"
+            active-class="active-bar">
+          Orders
+        </router-link>
+
+        <router-link
             v-if="!authStore.isAuthenticated"
             to="/login"
             class="btn btn-login">

@@ -12,8 +12,8 @@ export const productsRoutes = [
         beforeEnter: isAuthenticated
     },
     {
-        path: '/order',
-        name: 'order',
+        path: '/orders',
+        name: 'orders',
         component: () => import('../../views/Products/Order.vue'),
         beforeEnter: isAuthenticated
     }

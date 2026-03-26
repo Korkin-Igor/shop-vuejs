@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import api from "@/utils/axios";
 import { useCartStore } from "./cartStore";
 import {createOrderRequest, getOrdersRequest} from "@/utils/api/order";
 
