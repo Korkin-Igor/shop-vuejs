@@ -3,6 +3,22 @@ import { onMounted, ref } from "vue";
 import api from "@/utils/axios";
 import { useCartStore } from "@/stores/cartStore";
 import Product from "@/components/Product.vue";
+import { useOrderStore } from "@/stores/orderStore";
+import { useRouter } from "vue-router";
+
+const orderStore = useOrderStore();
+const router = useRouter();
+
+async function placeOrder() {
+  try {
+    await orderStore.createOrder();
+    await router.push('/orders');
+  } catch (error) {
+    if (error.response?.status === 422) {
+      alert("Корзина пуста");
+    }
+  }
+}
 
 const cartStore = useCartStore();
 const loading = ref(false);
@@ -19,14 +35,6 @@ async function getCart() {
         : "Не удалось загрузить корзину";
   } finally {
     loading.value = false;
-  }
-}
-
-async function removeItem(productId) {
-  try {
-    await api.delete(`/cart/${productId}`);
-  } catch (error) {
-    errorMessage.value = "Ошибка при удалении";
   }
 }
 
@@ -54,7 +62,7 @@ onMounted(getCart);
       <div class="cart-total">
         <div class="total-card">
           <p>Товаров в корзине: <b>{{ cartStore.cart.length }}</b></p>
-          <button class="btn btn-primary">Оформить заказ</button>
+          <button class="btn btn-primary" @click="orderStore.createOrder()">Оформить заказ</button>
         </div>
       </div>
     </div>

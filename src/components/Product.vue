@@ -152,4 +152,10 @@ const cartStore = useCartStore()
   color: white;
   box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
 }
+
+.cart-item {
+  flex-direction: row;
+  max-width: 100%;
+  height: 120px;
+}
 </style>
