@@ -21,7 +21,6 @@ const register = async () => {
 
   try {
     const response = await authStore.register(userData);
-    const token = response?.data?.token
     await router.push("/");
 
   } catch (error) {

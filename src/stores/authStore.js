@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import {loginRequest, registerRequest} from "@/utils/api";
+import {useCartStore} from "@/stores/cartStore";
 
 export const useAuthStore = defineStore('auth', () => {
     const token = ref(localStorage.getItem('token') || '');
@@ -34,6 +35,9 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     function logout() {
+        const cartStore = useCartStore()
+        cartStore.clearCart()
+
         token.value = '';
         localStorage.removeItem('token');
     }
