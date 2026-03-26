@@ -11,6 +11,7 @@ export const useCartStore = defineStore('cart', () => {
             const response = await getCartRequest()
             cart.value = response?.data || [];
             localStorage.setItem('cart', JSON.stringify(cart.value))
+            return cart.value; // Добавили возврат данных
         } catch (error) {
             cart.value = [];
             localStorage.removeItem('cart');
@@ -20,19 +21,19 @@ export const useCartStore = defineStore('cart', () => {
 
     async function addItem(productId) {
         try {
-            const response = await api.post(`cart/${productId}`)
-            cart.value = await getCart()
-            localStorage.setItem('cart', JSON.stringify(cart.value))
+            await api.post(`cart/${productId}`)
+            await getCart()
         } catch (error) {
             throw error;
         }
     }
 
-    async function removeItem() {
+    async function removeItem(productId) {
         try {
-            cart.value = cart.value.filter(item => item.id !== productId);
+            await api.delete(`cart/${productId}`)
+            await getCart()
         } catch (error) {
-
+            console.error("Ошибка удаления:", error)
         }
     }
 

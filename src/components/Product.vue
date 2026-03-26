@@ -44,7 +44,7 @@ const cartStore = useCartStore()
         <button
             v-else
             class="btn-remove"
-            @click="$emit('remove', product.id)"
+            @click="cartStore.removeItem(product.id)"
         >
           Удалить
         </button>
@@ -130,10 +130,10 @@ const cartStore = useCartStore()
 }
 
 .cart-product-image {
-  width: 100px;           /* Ограничиваем ширину */
-  height: 100px;          /* Ограничиваем высоту */
-  object-fit: contain;    /* Чтобы картинка не растягивалась и не обрезалась */
-  flex-shrink: 0;         /* Чтобы картинка не сжималась */
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  flex-shrink: 0;
   border-radius: 8px;
   background: #f9f9f9;
 }

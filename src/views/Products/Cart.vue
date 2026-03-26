@@ -48,7 +48,6 @@ onMounted(getCart);
             :key="item.id"
             :product="item"
             :is-cart="true"
-            @remove="removeItem"
         />
       </div>
 
