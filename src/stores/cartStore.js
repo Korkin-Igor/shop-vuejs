@@ -1,7 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import {getCartRequest} from "@/utils/api/cart";
-import api from "@/utils/axios";
+import {addItemRequest, getCartRequest, removeItemRequest} from "@/utils/api/cart";
 
 export const useCartStore = defineStore('cart', () => {
     const cart = ref(JSON.parse(localStorage.getItem('cart')) || []);
@@ -21,19 +20,19 @@ export const useCartStore = defineStore('cart', () => {
 
     async function addItem(productId) {
         try {
-            await api.post(`cart/${productId}`)
+            await addItemRequest(productId)
             await getCart()
         } catch (error) {
-            throw error;
+            throw error
         }
     }
 
     async function removeItem(productId) {
         try {
-            await api.delete(`cart/${productId}`)
+            await removeItemRequest(productId)
             await getCart()
         } catch (error) {
-            console.error("Ошибка удаления:", error)
+            throw error
         }
     }
 
