@@ -2,15 +2,35 @@
 import { onMounted, ref } from "vue";
 import { useOrderStore } from "@/stores/orderStore";
 import Product from "@/components/Product.vue";
+import api from "@/utils/axios";
 
 const orderStore = useOrderStore();
+const allProducts = ref([]);
 const loading = ref(false);
 
-onMounted(async () => {
+async function fetchData() {
   loading.value = true;
-  await orderStore.getOrders();
-  loading.value = false;
-});
+  try {
+    const [ordersRes, productsRes] = await Promise.all([
+      orderStore.getOrders(),
+      api.get('products')
+    ]);
+
+    allProducts.value = productsRes.data.data || productsRes.data;
+  } catch (error) {
+    console.error("Ошибка загрузки данных:", error);
+  } finally {
+    loading.value = false;
+  }
+}
+
+function getProductById(id) {
+  const found = allProducts.value.find(p => p.id === id);
+  // Если нашли — отдаем объект, если нет — отдаем минимальную заглушку, чтобы не упало
+  return found || { id, name: 'Product not found', price: 0, image: '', description: '' };
+}
+
+onMounted(fetchData);
 </script>
 
 <template>
@@ -28,14 +48,9 @@ onMounted(async () => {
           <Product
               v-for="productId in order.products"
               :key="productId"
-              :product="{
-                id: productId,
-                name: 'Product #' + productId,
-                image: '',
-                description: '',
-                price: 0
-              }"
-              :isOrder="true"/>
+              :product="getProductById(productId)"
+              :isOrder="true"
+          />
         </div>
       </div>
     </div>
@@ -58,7 +73,7 @@ onMounted(async () => {
   border: 1px solid #eee;
   border-radius: 12px;
   padding: 20px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   box-shadow: var(--shadow);
 }
 
@@ -66,7 +81,9 @@ onMounted(async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f5f5f5;
 }
 
 .order-number {
@@ -80,9 +97,10 @@ onMounted(async () => {
   font-size: 1.2rem;
 }
 
-.order-items-count {
-  color: #666;
-  font-size: 0.9rem;
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .empty-orders {
