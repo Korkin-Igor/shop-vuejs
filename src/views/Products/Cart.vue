@@ -2,6 +2,7 @@
 import { onMounted, ref } from "vue";
 import api from "@/utils/axios";
 import { useCartStore } from "@/stores/cartStore";
+import Product from "@/components/Product.vue";
 
 const cartStore = useCartStore();
 const loading = ref(false);
@@ -42,14 +43,13 @@ onMounted(getCart);
 
     <div v-else-if="cartStore.cart && cartStore.cart.length > 0" class="cart-wrapper">
       <div class="cart-list">
-        <div v-for="item in cartStore.cart" :key="item.id" class="product-card cart-item">
-          <img :src="item.image || 'https://via.placeholder.com'" alt="">
-          <div class="item-info">
-            <h3>{{ item.name }}</h3>
-            <p class="product-price">{{ item.price }} ₽</p>
-          </div>
-          <button @click="removeItem(item.id)" class="btn btn-remove">Удалить</button>
-        </div>
+        <Product
+            v-for="item in cartStore.cart"
+            :key="item.id"
+            :product="item"
+            :is-cart="true"
+            @remove="removeItem"
+        />
       </div>
 
       <div class="cart-total">

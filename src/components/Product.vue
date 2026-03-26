@@ -1,32 +1,53 @@
 <script setup>
 import {computed} from "vue";
+import {useCartStore} from "@/stores/cartStore";
 
 const props = defineProps({
-  product: {
-    id: Number,
-    name: String,
-    image: String,
-    description: String,
-    price: Number,
-  }
+  product: Object,
+  isCart: Boolean
 })
 
 const image_url = computed(() => {
   return process.env.VUE_APP_API_URL_IMAGE + props.product.image
 })
+
+const cartStore = useCartStore()
 </script>
 
+
 <template>
-  <div class="product-item">
+  <div class="product-item" :class="{ 'cart-item': isCart }">
     <div class="product-image">
-      <img :src="image_url" :alt="product.name" />
+      <img
+          :src="image_url"
+          :alt="product.name"
+          :class="{'cart-product-image': isCart}"
+      />
     </div>
+
     <div class="product-info">
       <h3 class="product-title">{{ product.name }}</h3>
-      <p class="product-desc">{{ product.description }}</p>
+
+      <p v-if="!isCart" class="product-desc">{{ product.description }}</p>
+
       <div class="product-footer">
         <span class="product-price">{{ product.price }} ₽</span>
-        <button class="btn-primary" @click="$emit('add', product.id)">В корзину</button>
+
+        <button
+            v-if="!isCart"
+            class="btn-primary"
+            @click="cartStore.addItem(product.id)"
+        >
+          В корзину
+        </button>
+
+        <button
+            v-else
+            class="btn-remove"
+            @click="$emit('remove', product.id)"
+        >
+          Удалить
+        </button>
       </div>
     </div>
   </div>
@@ -42,6 +63,7 @@ const image_url = computed(() => {
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
   height: 100%;
+  max-width: 300px;
 }
 
 .product-item:hover {
@@ -105,5 +127,29 @@ const image_url = computed(() => {
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.2s;
+}
+
+.cart-product-image {
+  width: 100px;           /* Ограничиваем ширину */
+  height: 100px;          /* Ограничиваем высоту */
+  object-fit: contain;    /* Чтобы картинка не растягивалась и не обрезалась */
+  flex-shrink: 0;         /* Чтобы картинка не сжималась */
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.btn-remove {
+  background-color: transparent;
+  color: var(--error-color, #ef4444);
+  border: 1px solid var(--error-color, #ef4444);
+  padding: 6px 14px;
+  border-radius: var(--radius, 8px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-remove:hover {
+  background-color: var(--error-color, #ef4444);
+  color: white;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
 }
 </style>
