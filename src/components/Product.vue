@@ -39,7 +39,7 @@ const cartStore = useCartStore()
             class="btn-primary"
             @click="cartStore.addItem(product.id)"
         >
-          В корзину
+          In cart
         </button>
 
         <button
@@ -47,7 +47,7 @@ const cartStore = useCartStore()
             class="btn-remove"
             @click="cartStore.removeItem(product.id)"
         >
-          Удалить
+          Remove
         </button>
       </div>
     </div>

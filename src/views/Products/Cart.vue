@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import api from "@/utils/axios";
 import { useCartStore } from "@/stores/cartStore";
 import Product from "@/components/Product.vue";
 import { useOrderStore } from "@/stores/orderStore";
@@ -15,7 +14,7 @@ async function placeOrder() {
     await router.push('/orders');
   } catch (error) {
     if (error.response?.status === 422) {
-      alert("Корзина пуста");
+      alert("Cart is empty");
     }
   }
 }
@@ -31,8 +30,8 @@ async function getCart() {
     await cartStore.getCart();
   } catch (error) {
     errorMessage.value = error.response?.status === 401
-        ? "Нужна авторизация"
-        : "Не удалось загрузить корзину";
+        ? 'Authorization required'
+        : 'Failed to load cart';
   } finally {
     loading.value = false;
   }
@@ -43,7 +42,7 @@ onMounted(getCart);
 
 <template>
   <div class="cart-page">
-    <div v-if="loading" class="status-info">Загрузка...</div>
+    <div v-if="loading" class="status-info">Loading...</div>
 
     <div v-else-if="errorMessage" class="error-list">
       {{ errorMessage }}
@@ -61,14 +60,14 @@ onMounted(getCart);
 
       <div class="cart-total">
         <div class="total-card">
-          <p>Товаров в корзине: <b>{{ cartStore.cart.length }}</b></p>
-          <button class="btn btn-primary" @click="orderStore.createOrder()">Оформить заказ</button>
+          <p>Products in cart: <b>{{ cartStore.cart.length }}</b></p>
+          <button class="btn btn-primary" @click="orderStore.createOrder()">Create order</button>
         </div>
       </div>
     </div>
 
     <div v-else class="empty-info">
-      <p>Корзина пуста</p>
+      <p>Cart is empty</p>
     </div>
   </div>
 </template>

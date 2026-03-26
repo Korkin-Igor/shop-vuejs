@@ -20,7 +20,7 @@ onMounted(async () => {
     <div v-if="orderStore.orders">
       <div v-for="order in orderStore.orders" :key="order.id" class="order-card">
         <div class="order-header">
-          <span class="order-number">Заказ №{{ order.id }}</span>
+          <span class="order-number">Order №{{ order.id }}</span>
           <strong class="order-price">{{ order.order_price }} ₽</strong>
         </div>
 
@@ -30,19 +30,18 @@ onMounted(async () => {
               :key="productId"
               :product="{
                 id: productId,
-                name: 'Товар #' + productId,
+                name: 'Product #' + productId,
                 image: '',
                 description: '',
                 price: 0
               }"
-              :is-order="true"
-          />
+              :is-order="true"/>
         </div>
       </div>
     </div>
 
     <div v-if="orderStore.orders && orderStore.orders.length === 0 && !loading" class="empty-orders">
-      Заказов пока нет
+      No orders yet
     </div>
   </div>
 </template>
